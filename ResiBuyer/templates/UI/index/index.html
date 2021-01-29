@@ -1,0 +1,46 @@
+{% extends "../basic_template/basic_template.html" %}
+
+{% load static %}
+
+{% block content %}
+    <!-- Form -->
+    <div class="container">
+
+        <div class="title-spacer"></div>
+
+        <h1 class="text-center mb-3 display-3">Resi Buyer</h1>
+        <p class="text-center h3">Data Management Proof of Concept</p>
+        <br>
+        <br>
+        
+        <h2 class="text-center mb-3">I want to...</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <a href="/order/place/">
+                    <button class="btn btn-primary btn-lg btn-block">
+                        Place An Order &nbsp;
+                        <img class="index-feather" src="{% static 'feather/shopping-cart.svg' %}"/>
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="/order/view/">
+                    <button class="btn btn-primary btn-lg btn-block">
+                        View My Orders &nbsp;
+                        <img class="index-feather" src="{% static 'feather/users.svg' %}"/>
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="/blockchain/">
+                    <button class="btn btn-primary btn-lg btn-block">
+                        Blockchain &nbsp;
+                        <img class="index-feather" src="{% static 'feather/file-text.svg' %}"/>
+                    </button>
+                </a>
+            </div>
+        </div>
+    
+    </div>
+{% endblock %}

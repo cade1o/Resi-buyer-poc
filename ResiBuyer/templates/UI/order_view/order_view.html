@@ -1,0 +1,40 @@
+{% extends "../basic_template/basic_template.html" %}
+
+{% block content %}
+<br>
+<h2>My Orders</h2>
+<hr>
+
+<p>These are your current orders</p>
+
+<div class="table-responsive">
+    <table id = "blockchain" class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col" class="col-1"># Order No.</th>
+            <th scope="col" class="col-2">Product</th>
+            <th scope="col" class="col-3">Producer</th>
+            <th scope="col" class="col-2">Count</th>
+            <th scope="col" class="col-4">Address</th>
+            <th scope="col" class="col-5">Invoice</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <th scope="row">{{order.id}}</th>
+                    <td>{{order.product_name}}</td>
+                    <td>{{order.producer_name}}</td>
+                    <td>{{order.quantity}}</td>
+                    <td>{{order.delivery_address}}</td>
+                    <td><a class ="ml-2" href ="{% url 'invoice' order.id %}">Invoice</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<br>
+<br>
+<br>
+{% endblock %}

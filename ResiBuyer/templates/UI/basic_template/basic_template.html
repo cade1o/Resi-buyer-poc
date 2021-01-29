@@ -1,0 +1,183 @@
+<!--
+    This is the main template used by the current pages on the website.
+    It has a navigation bar at the top, a sidebar down the side, and a big
+    section where all the main content should go. It uses Bootstrap-style
+    CSS and Django-style templating. If you have questions Brandon or William
+    are currently good contacts.
+
+    I (Brandon) found this useful for Django templating:
+    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Home_page#Template
+-->
+
+<!doctype html>
+<html lang="en">
+
+<style>
+    .table thead th{
+        background-color: #f8fafd;
+        color: #6c757e;
+        width: 100%;
+    }
+
+    .myClassTwo{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        width: auto;
+    }
+    .myClass
+    {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        width: auto;
+        color: #1d6fa5;
+        text-decoration: underline;
+    } 
+    #blockchain { 
+        table-layout:fixed;
+    }
+    td { 
+        word-wrap: break-word;
+    }
+</style>   
+<head>
+      
+        {% block title %}<title>Resi-Buying</title>{% endblock %}
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <!-- Custom styles for this page -->
+        {% load static %}
+        <link href="{% static 'UI/css/main.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" type="image/svg" href="{% static 'favicon.ico' %}"/>
+
+    </head>
+
+    <body>
+
+        <!-- Navigation Bar -->
+        {% block navbar %}
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/">Resi-Buying</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if user.is_authenticated%}
+            <ul class = "navbar-nav px-3">
+                <li class = "nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        Logout
+                    </a>
+                </li>
+                {% else %}
+                <li class = "nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">
+                        Register
+                    </a>
+                </li>
+
+                <li class = "nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        Login
+                    </a>
+                </li>
+                {%endif%}
+            </ul>
+        </nav>
+        {% endblock %}
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                {% block sidebar %}
+                <nav id="sidebarMenu" class="col-md-4 col-lg-3 col-xl-2 d-md-block bg-light sidebar collapse">
+                    <div class="sidebar-sticky pt-3">
+
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/">
+                                    <img class="feather" src="{% static 'feather/home.svg' %}"/>
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Orders</span>
+                        </h6>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/order/place/">
+                                    <img class="feather" src="{% static 'feather/shopping-cart.svg' %}"/>
+                                    Place Order
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/order/view/">
+                                    <img class="feather" src="{% static 'feather/users.svg' %}"/>
+                                    View My Orders
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Blockchain</span>
+                        </h6>
+
+                        <ul class="nav flex-column mb-2">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/blockchain/">
+                                    <img class="feather" src="{% static 'feather/bar-chart-2.svg' %}"/>
+                                    View Blockchain
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register_node/">
+                                    <img class="feather" src="{% static 'feather/share-2.svg' %}"/>
+                                    Join P2P Network
+                                </a>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                </nav>
+                {% endblock %}
+
+                <!-- Main -->
+                <main role="main" class="col-md-8 ml-sm-auto col-lg-9 col-xl-10 px-md-4">
+                    <!-- Main content goes here -->
+                    {% block content %}
+                    {% endblock %}
+                </main>
+
+
+            </div>
+
+        </div>
+
+        <!-- Bootstrap Stuff -->
+        
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
+        <!-- Popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <!-- Feather Icons -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <!-- Our Script -->
+        
+        <script src="{% static 'UI/js/sidebar.js' %}"></script>
+    
+    </body>
+</html>

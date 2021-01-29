@@ -1,0 +1,28 @@
+{% extends "../basic_template/basic_template.html" %}
+
+{% block content %}
+
+<br>
+<h2>Register Node</h2>
+<hr>
+
+<p>Please enter a the address of the node that you wish to register</p>
+<form action="/register_node/" method="POST">
+    {% csrf_token %}
+    {% if error %}
+    <div class="alert alert-danger" role="alert">Submission is invalid</div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success" role="alert">Success</div>
+    {% endif %}     
+    <label for=register-node>Address</label>
+    <input name="node_address" id=register-node type="text" pattern="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$">
+    <input type="submit" value="Submit">
+</form>
+<hr>
+<h4>Current Peers</h4>
+{% for peer in peers %}
+<p>{{peer}}</p>
+{% endfor %}
+
+{% endblock %}

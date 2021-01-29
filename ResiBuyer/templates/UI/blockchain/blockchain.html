@@ -1,0 +1,72 @@
+{% extends "../basic_template/basic_template.html" %}
+
+<!--individual order details-->
+
+{% block content %}
+
+<br>
+<h2>Blockchain</h2>
+<hr>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Hash.." title="Type in a name">
+
+<div class="table-responsive">
+
+    <table id = "blockchain" class="table table-striped table-hover">
+        <thead>
+        <tr id>
+            <th scope="col" class="col-1"># Index</th>
+            <th scope="col" class="col-3">Data</th>
+            <th scope="col" class="col-3">Timestamp</th>
+            <th scope="col" class="col-3">Previous Hash</th>
+            <th scope="col" class="col-2">Nonce</th>
+        </tr>
+        </thead>
+        <tbody class="pleasework">
+            {% for block in blocks %}
+                <tr>
+                    <th scope="row">{{block.index}}</th>
+                    <td id="clickMe" class="myClass">{{block.data}}</td>
+                    <td>{{block.timestamp}}</td>
+                    <td id="clickMe" class="myClass">{{block.previous_hash}}</td>
+                    <td>{{block.nonce}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<hr>
+<h4>Unconfirmed Transactions</h4>
+{% for tx in txs %}
+<p>{{tx}}</p>
+{% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(".myClass").click(function(){
+        $(this  ).toggleClass("myClass");
+        })
+    });
+</script>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("blockchain");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+{% endblock %}
